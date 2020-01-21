@@ -6,6 +6,8 @@ import createMentionPlugin, {
 } from 'draft-js-mention-plugin';
 import Editor from 'draft-js-plugins-editor';
 import mentions from './data/mentions'
+import createImagePlugin from 'draft-js-image-plugin';
+import createVideoPlugin from 'draft-js-video-plugin';
 import pluginStyles from '../../node_modules/draft-js-mention-plugin/lib/plugin.css';
 
 class DocumentEditor extends React.Component {
