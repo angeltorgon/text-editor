@@ -1,23 +1,32 @@
 import React from 'react';
 import "./styles/document-editor.css"
-import { EditorState, Modifier } from 'draft-js';
+import {
+  EditorState,
+  ContentState,
+  Modifier,
+  convertToRaw,
+  convertFromRaw
+} from 'draft-js';
 import createMentionPlugin, {
   defaultSuggestionsFilter
 } from 'draft-js-mention-plugin';
 import Editor from 'draft-js-plugins-editor';
 import mentions from './data/mentions'
-import createImagePlugin from 'draft-js-image-plugin';
-import createVideoPlugin from 'draft-js-video-plugin';
 import pluginStyles from '../../node_modules/draft-js-mention-plugin/lib/plugin.css';
 
 class DocumentEditor extends React.Component {
   constructor(props) {
     super(props);
+    const doc = JSON.parse(localStorage.getItem('document'));
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editorState: doc ? EditorState.createWithContent(convertFromRaw(doc)) : EditorState.createEmpty(),
       suggestions: mentions
     };
     this.onChange = editorState => {
+      const contentState = this.state.editorState.getCurrentContent();
+      const raw = convertToRaw(contentState);
+      localStorage.setItem("document", JSON.stringify(raw, null, 2));
+
       this.setState({ editorState });
     };
     this.onFocus = () => this.refs.editor.focus();
