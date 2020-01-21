@@ -1,6 +1,6 @@
 import React from 'react';
 import "./styles/document-editor.css"
-import { EditorState, RichUtils, Modifier } from 'draft-js';
+import { EditorState, Modifier } from 'draft-js';
 import createMentionPlugin, {
   defaultSuggestionsFilter
 } from 'draft-js-mention-plugin';
@@ -28,17 +28,6 @@ class DocumentEditor extends React.Component {
     });
   };
 
-  handleKeyCommand(command, editorState) {
-    const newState = RichUtils.handleKeyCommand(editorState, command);
-
-    if (newState) {
-      this.onChange(newState);
-      return 'handled';
-    }
-
-    return 'not-handled';
-  }
-
   render() {
     const { MentionSuggestions } = this.mentionPlugin;
     const plugins = [this.mentionPlugin];
@@ -48,7 +37,6 @@ class DocumentEditor extends React.Component {
         <Editor
           ref="editor"
           editorState={this.state.editorState}
-          handleKeyCommand={this.handleKeyCommand}
           onChange={this.onChange}
           plugins={plugins}
         />
