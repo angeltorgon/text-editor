@@ -1,6 +1,6 @@
 .editor {  
-  padding: 15px;
-  border: 1px solid black;
-  min-height: 80vh;
+  margin: 15px;
+  border: 1px solid #000000;
+  min-height: 90vh;
   cursor: text;
 }
